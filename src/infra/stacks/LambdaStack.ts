@@ -12,15 +12,13 @@ export class LambdaStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: LambdaStackProps) {
     super(scope, id, props);
 
-    const helloLambdaFunction = new cdk.aws_lambda.Function(
+    const helloLambdaFunction = new cdk.aws_lambda_nodejs.NodejsFunction(
       this,
       "LambdaFunction",
       {
         runtime: cdk.aws_lambda.Runtime.NODEJS_20_X,
-        handler: "hello.main",
-        code: cdk.aws_lambda.Code.fromAsset(
-          path.join(__dirname, "../../services")
-        ),
+        handler: "handler",
+        entry: path.join(__dirname, "../../services/hello.ts"),
         environment: {
           TABLE_NAME: props.spacesTable.tableName,
         },

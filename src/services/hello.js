@@ -1,4 +1,4 @@
-exports.handler = async function (event, context) {
+exports.main = async function (event, context) {
   console.log("event: ", event);
   console.log("context: ", context);
 

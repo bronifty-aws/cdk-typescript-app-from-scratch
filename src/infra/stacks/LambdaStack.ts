@@ -18,7 +18,7 @@ export class LambdaStack extends cdk.Stack {
       {
         runtime: cdk.aws_lambda.Runtime.NODEJS_LATEST,
         handler: "handler",
-        entry: path.join(__dirname, "../../services/hello.ts"),
+        entry: path.join(__dirname, "../../services/index.ts"),
         environment: {
           TABLE_NAME: props.spacesTable.tableName,
         },

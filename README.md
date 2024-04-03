@@ -1,0 +1,6 @@
+- create folder
+- npm init -y
+- pnpm add -D @types/node typescript ts-node aws-cdk aws-cdk-lib constructs
+- create Launcher.ts file
+- create empty stack
+- create cdk.json file

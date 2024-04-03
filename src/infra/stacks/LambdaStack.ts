@@ -24,6 +24,15 @@ export class LambdaStack extends cdk.Stack {
         },
       }
     );
+
+    helloLambdaFunction.addToRolePolicy(
+      new cdk.aws_iam.PolicyStatement({
+        effect: cdk.aws_iam.Effect.ALLOW,
+        actions: ["s3:ListAllMyBuckets", "s3:ListBucket"],
+        resources: ["*"], // bad practice
+      })
+    );
+
     this.helloLambdaIntegration = new cdk.aws_apigateway.LambdaIntegration(
       helloLambdaFunction
     );

@@ -5,7 +5,7 @@ exports.main = async function (event, context) {
   return {
     statusCode: 200,
     body: JSON.stringify({
-      message: "Hello World!",
+      message: `Hello from the Space Finder API! I will read from ${process.env.TABLE_NAME}`,
     }),
   };
 };

@@ -5,7 +5,9 @@ import { ApiStack } from "./stacks/ApiStack";
 
 const app = new cdk.App();
 const dataStack = new DataStack(app, "DataStack");
-const lambdaStack = new LambdaStack(app, "LambdaStack");
+const lambdaStack = new LambdaStack(app, "LambdaStack", {
+  spacesTable: dataStack.spacesTable,
+});
 const apiStack = new ApiStack(app, "ApiStack", {
   helloLambdaIntegration: lambdaStack.helloLambdaIntegration,
 });

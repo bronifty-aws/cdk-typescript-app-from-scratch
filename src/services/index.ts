@@ -15,7 +15,7 @@ async function handler(event: APIGatewayProxyEvent, context: Context) {
   const response: APIGatewayProxyResult = {
     statusCode: 200,
     body: JSON.stringify(
-      "ci/cd with github actions to deploy this on push and pr merge into main:" +
+      "ci/cd with github actions to deploy this on push and pr merge into main. btw here is the list of your buckets:" +
         JSON.stringify(listBucketsResult)
     ),
   };

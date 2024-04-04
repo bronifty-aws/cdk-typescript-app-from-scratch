@@ -15,7 +15,7 @@ async function handler(event: APIGatewayProxyEvent, context: Context) {
   const response: APIGatewayProxyResult = {
     statusCode: 200,
     body: JSON.stringify(
-      "Hello from lambda, here are your buckets:" +
+      "ci/cd with github actions to deploy this on push and pr merge into main:" +
         JSON.stringify(listBucketsResult)
     ),
   };

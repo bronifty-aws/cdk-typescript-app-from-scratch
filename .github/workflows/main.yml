@@ -7,7 +7,7 @@ on:
 env:
   AWS_REGION: "us-east-1" #Change to reflect your Region
 
-name: cdk deploy
+name: main.yml
 
 # Permission can be added at job level or workflow level
 permissions:
@@ -29,3 +29,17 @@ jobs:
       - name: Sts GetCallerIdentity
         run: |
           aws sts get-caller-identity
+
+      # Install AWS CDK CLI
+      - name: Install AWS CDK CLI
+        run: npm install -g aws-cdk
+
+      # If your project uses npm, install your project dependencies
+      - name: Install project dependencies
+        run: npm install
+
+      # Deploy with AWS CDK
+      - name: CDK Deploy
+        run: cdk deploy --all --require-approval never
+        env:
+          AWS_REGION: ${{ env.AWS_REGION }} # Ensures AWS CDK uses the correct region

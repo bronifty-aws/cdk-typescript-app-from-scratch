@@ -7,12 +7,12 @@ interface LambdaStackProps extends cdk.StackProps {
 }
 
 export class LambdaStack extends cdk.Stack {
-  public readonly helloLambdaIntegration: cdk.aws_apigateway.LambdaIntegration;
+  public readonly spacesLambdaIntegration: cdk.aws_apigateway.LambdaIntegration;
 
   constructor(scope: Construct, id: string, props: LambdaStackProps) {
     super(scope, id, props);
 
-    const helloLambdaFunction = new cdk.aws_lambda_nodejs.NodejsFunction(
+    const spacesLambdaFunction = new cdk.aws_lambda_nodejs.NodejsFunction(
       this,
       "LambdaFunction",
       {
@@ -25,7 +25,7 @@ export class LambdaStack extends cdk.Stack {
       }
     );
 
-    helloLambdaFunction.addToRolePolicy(
+    spacesLambdaFunction.addToRolePolicy(
       new cdk.aws_iam.PolicyStatement({
         effect: cdk.aws_iam.Effect.ALLOW,
         actions: ["s3:ListAllMyBuckets", "s3:ListBucket"],
@@ -33,8 +33,8 @@ export class LambdaStack extends cdk.Stack {
       })
     );
 
-    this.helloLambdaIntegration = new cdk.aws_apigateway.LambdaIntegration(
-      helloLambdaFunction
+    this.spacesLambdaIntegration = new cdk.aws_apigateway.LambdaIntegration(
+      spacesLambdaFunction
     );
   }
 }

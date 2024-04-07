@@ -28,13 +28,13 @@ jobs:
         run: |
           aws sts get-caller-identity
 
-      # Install AWS CDK CLI
-      - name: Install AWS CDK CLI
-        run: npm install -g aws-cdk
+      # Install pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
 
-      # If your project uses npm, install your project dependencies
+      # If your project uses pnpm, install your project dependencies
       - name: Install project dependencies
-        run: npm install
+        run: pnpm install
 
       # Deploy with AWS CDK
       - name: CDK Deploy

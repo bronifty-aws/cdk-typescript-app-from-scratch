@@ -1,0 +1,47 @@
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  AWS_REGION: "us-east-1" #Change to reflect your Region
+
+# Permission can be added at job level or workflow level
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+jobs:
+  AssumeRoleAndCDKDeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1.7.0
+        with:
+          role-to-assume: arn:aws:iam::851725517932:role/AdministratorAccess #change to reflect your IAM role’s ARN
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ env.AWS_REGION }}
+      # Hello from AWS: WhoAmI
+      - name: Sts GetCallerIdentity
+        run: |
+          aws sts get-caller-identity
+
+      # Install pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # If your project uses pnpm, install your project dependencies
+      - name: Install project dependencies
+        run: pnpm install
+
+      # Install AWS CDK CLI
+      - name: Install AWS CDK CLI
+        run: npm install -g aws-cdk
+
+      # Deploy with AWS CDK
+      - name: CDK Deploy
+        run: cdk deploy --all --require-approval never
+        env:
+          AWS_REGION: ${{ env.AWS_REGION }} # Ensures AWS CDK uses the correct region

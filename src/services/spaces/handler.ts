@@ -8,7 +8,7 @@ async function handler(
   event: APIGatewayProxyEvent,
   context: Context
 ): Promise<APIGatewayProxyResult> {
-  let message: string;
+  let message: string = "";
 
   switch (event.httpMethod) {
     case "GET":

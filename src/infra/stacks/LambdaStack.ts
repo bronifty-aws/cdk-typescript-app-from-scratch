@@ -33,6 +33,14 @@ export class LambdaStack extends cdk.Stack {
       })
     );
 
+    spacesLambdaFunction.addToRolePolicy(
+      new cdk.aws_iam.PolicyStatement({
+        effect: cdk.aws_iam.Effect.ALLOW,
+        resources: [props.spacesTable.tableArn],
+        actions: ["dynamodb:PutItem"],
+      })
+    );
+
     this.spacesLambdaIntegration = new cdk.aws_apigateway.LambdaIntegration(
       spacesLambdaFunction
     );

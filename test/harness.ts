@@ -1,3 +1,56 @@
 import { handler } from "../src/services/spaces/handler";
+import type {
+  APIGatewayProxyEvent,
+  APIGatewayProxyResult,
+  Context,
+} from "aws-lambda";
+const event: APIGatewayProxyEvent = {
+  body: JSON.stringify({}),
+  headers: {},
+  multiValueHeaders: {},
+  httpMethod: "GET",
+  isBase64Encoded: false,
+  path: "/",
+  pathParameters: {},
+  queryStringParameters: {},
+  multiValueQueryStringParameters: {},
+  stageVariables: {},
+  requestContext: {
+    accountId: "",
+    apiId: "",
+    authorizer: {},
+    domainName: "",
+    domainPrefix: "",
+    extendedRequestId: "",
+    httpMethod: "",
+    identity: {
+      accessKey: "",
+      accountId: "",
+      apiKey: "",
+      apiKeyId: "",
+      caller: "",
+      clientCert: null,
+      cognitoAuthenticationProvider: "",
+      cognitoAuthenticationType: "",
+      cognitoIdentityId: "",
+      cognitoIdentityPoolId: "",
+      principalOrgId: "",
+      sourceIp: "",
+      user: "",
+      userAgent: "",
+      userArn: "",
+    },
+    path: "",
+    protocol: "",
+    requestId: "",
+    requestTime: "",
+    requestTimeEpoch: 0,
+    resourceId: "",
+    resourcePath: "",
+    stage: "",
+  },
+  resource: "",
+};
 
+handler(event, {} as any);
 handler({} as any, {} as any);

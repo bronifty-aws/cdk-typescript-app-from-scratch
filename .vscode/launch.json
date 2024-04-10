@@ -11,7 +11,8 @@
       "runtimeArgs": ["-r", "ts-node/register"],
       "args": ["${relativeFile}"],
       "env": {
-        "AWS_REGION": "us-east-1"
+        "AWS_REGION": "us-east-1",
+        "TABLE_NAME": "spaces-table-0e64312a57df"
       }
     }
   ]

@@ -1,56 +1,14 @@
 import { handler } from "../src/services/spaces";
-import type {
-  APIGatewayProxyEvent,
-  APIGatewayProxyResult,
-  Context,
-} from "aws-lambda";
-const event: APIGatewayProxyEvent = {
-  body: JSON.stringify({}),
-  headers: {},
-  multiValueHeaders: {},
-  httpMethod: "GET",
-  isBase64Encoded: false,
-  path: "/",
-  pathParameters: {},
-  queryStringParameters: {},
-  multiValueQueryStringParameters: {},
-  stageVariables: {},
-  requestContext: {
-    accountId: "",
-    apiId: "",
-    authorizer: {},
-    domainName: "",
-    domainPrefix: "",
-    extendedRequestId: "",
-    httpMethod: "",
-    identity: {
-      accessKey: "",
-      accountId: "",
-      apiKey: "",
-      apiKeyId: "",
-      caller: "",
-      clientCert: null,
-      cognitoAuthenticationProvider: "",
-      cognitoAuthenticationType: "",
-      cognitoIdentityId: "",
-      cognitoIdentityPoolId: "",
-      principalOrgId: "",
-      sourceIp: "",
-      user: "",
-      userAgent: "",
-      userArn: "",
-    },
-    path: "",
-    protocol: "",
-    requestId: "",
-    requestTime: "",
-    requestTimeEpoch: 0,
-    resourceId: "",
-    resourcePath: "",
-    stage: "",
-  },
-  resource: "",
-};
 
-handler(event, {} as any);
-// handler({} as any, {} as any);
+process.env.AWS_REGION = "us-east-1";
+process.env.TABLE_NAME = "spaces-table-0e64312a57df";
+
+handler(
+  {
+    httpMethod: "POST",
+    body: JSON.stringify({
+      location: "test harness from ts-node",
+    }),
+  } as any,
+  {} as any
+);

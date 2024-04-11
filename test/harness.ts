@@ -7,7 +7,7 @@ handler(
   {
     httpMethod: "POST",
     body: JSON.stringify({
-      location: "test harness from ts-node",
+      location: "your mom",
     }),
   } as any,
   {} as any

@@ -3,10 +3,11 @@ import type {
   APIGatewayProxyResult,
   Context,
 } from "aws-lambda";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+// import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { postHandler } from "./postHandler";
+import DynamoDBService from "../shared/db";
 
-const ddbClient = new DynamoDBClient({});
+const ddbClient = DynamoDBService.getInstance();
 
 async function handler(
   event: APIGatewayProxyEvent,

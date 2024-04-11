@@ -4,7 +4,7 @@ import type {
   Context,
 } from "aws-lambda";
 // import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { postHandler } from "./postHandler";
+import { postHandler } from "./postHandlerOriginal";
 import DynamoDBService from "../shared/db";
 
 const ddbClient = DynamoDBService.getInstance();

@@ -18,7 +18,7 @@ async function handler(
   try {
     switch (event.httpMethod) {
       case "GET":
-        message = "Hello from GET!";
+        message = "your mom";
         break;
       case "POST":
         const response = postHandler(event, ddbClient);

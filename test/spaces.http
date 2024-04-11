@@ -9,8 +9,8 @@ POST {{url}}/spaces
 content-type: application/json
 
  {
-    "location": "beltway sewer",
-    "name": "worst location"
+    "location": "what's wrong with this location",
+    "name": "mountain mama"
  }
 ###
 

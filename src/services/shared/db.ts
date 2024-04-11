@@ -2,6 +2,7 @@ import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 
 // const ddbClient = new DynamoDBClient({});
 
+// needs TABLE_NAME
 interface DynamoDBServiceProps {
   id: string;
   location: string;

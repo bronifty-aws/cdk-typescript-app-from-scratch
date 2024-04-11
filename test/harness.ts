@@ -7,7 +7,7 @@ handler(
   {
     httpMethod: "POST",
     body: JSON.stringify({
-      location: "your mom",
+      location: "abc",
     }),
   } as any,
   {} as any

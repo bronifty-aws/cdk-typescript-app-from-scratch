@@ -3,11 +3,16 @@ import type {
   APIGatewayProxyResult,
   Context,
 } from "aws-lambda";
-// import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { postHandler } from "./postHandlerOriginal";
 import DynamoDBService from "../shared/db";
+import { postHandler } from "./postHandler";
+import { scanHandler } from "./scanHandler";
+const ddb = DynamoDBService.getInstance();
 
-const ddbClient = DynamoDBService.getInstance();
+// for testing
+// import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+// import { postHandler } from "./postHandlerOriginal";
+// const ddbClient = new DynamoDBClient({});
+// end of testing
 
 async function handler(
   event: APIGatewayProxyEvent,
@@ -18,11 +23,9 @@ async function handler(
   try {
     switch (event.httpMethod) {
       case "GET":
-        message = "your mom";
-        break;
+        return await scanHandler(event, ddb);
       case "POST":
-        const response = postHandler(event, ddbClient);
-        return response;
+        return await postHandler(event, ddb);
       default:
         break;
     }

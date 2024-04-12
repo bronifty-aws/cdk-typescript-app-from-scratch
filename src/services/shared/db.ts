@@ -1,20 +1,30 @@
-import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
-
-// const ddbClient = new DynamoDBClient({});
+import {
+  DynamoDBClient,
+  PutItemCommand,
+  ScanCommand,
+} from "@aws-sdk/client-dynamodb";
 
 // needs TABLE_NAME
 interface DynamoDBServiceProps {
-  id: string;
-  location: string;
+  tableName?: string;
+  id?: string;
+  location?: string;
+}
+
+interface IDynamoDBService {
+  putItem(props: DynamoDBServiceProps): Promise<void>;
+  // Uncomment and implement when needed
+  // getItem(tableName: string, key: any): Promise<any>;
 }
 
 class DynamoDBService {
   private static instance: DynamoDBService;
   private client: DynamoDBClient;
+  private tableName: string;
 
   private constructor() {
-    // Initialize the DynamoDB client
     this.client = new DynamoDBClient({});
+    this.tableName = process.env.TABLE_NAME || "spaces-table-0e64312a57df";
   }
 
   public static getInstance(): DynamoDBService {
@@ -22,6 +32,20 @@ class DynamoDBService {
       DynamoDBService.instance = new DynamoDBService();
     }
     return DynamoDBService.instance;
+  }
+
+  public async scanTable(): Promise<any[]> {
+    try {
+      const result = await this.client.send(
+        new ScanCommand({
+          TableName: this.tableName,
+        })
+      );
+      return result.Items || [];
+    } catch (error) {
+      console.error("Error scanning DynamoDB table:", error);
+      throw error;
+    }
   }
 
   // public async getItem(tableName: string, key: any): Promise<any> {
@@ -39,21 +63,44 @@ class DynamoDBService {
   //   }
   // }
 
+  // public async putItem(props:DynamoDBServiceProps): Promise<void> {
+  //   try {
+  //     await this.client.send(
+  //       new PutItemCommand({
+  //         TableName: this.tableName,
+  //         Item: {
+  //           id: {
+  //             S: props.id,
+  //           },
+  //           location: {
+  //             S: props.location,
+  //           },
+  //         },
+  //       })
+  //     );
+  //   } catch (error) {
+  //     console.error("Error putting item into DynamoDB:", error);
+  //     throw error;
+  //   }
+  // }
+
   public async putItem(props: DynamoDBServiceProps): Promise<void> {
     try {
-      await this.client.send(
+      const item: { [key: string]: { S: string } } = {};
+      if (props.id) {
+        item.id = { S: props.id };
+      }
+      if (props.location) {
+        item.location = { S: props.location };
+      }
+
+      const result = await this.client.send(
         new PutItemCommand({
-          TableName: process.env.TABLE_NAME,
-          Item: {
-            id: {
-              S: props.id,
-            },
-            location: {
-              S: props.location,
-            },
-          },
+          TableName: this.tableName,
+          Item: item,
         })
       );
+      console.log(result);
     } catch (error) {
       console.error("Error putting item into DynamoDB:", error);
       throw error;

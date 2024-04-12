@@ -24,7 +24,7 @@ class DynamoDBService {
 
   private constructor() {
     this.client = new DynamoDBClient({});
-    this.tableName = process.env.TABLE_NAME || "spaces-table-0e64312a57df";
+    this.tableName = process.env.TABLE_NAME || "";
   }
 
   public static getInstance(): DynamoDBService {

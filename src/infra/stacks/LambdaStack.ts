@@ -37,7 +37,13 @@ export class LambdaStack extends cdk.Stack {
       new cdk.aws_iam.PolicyStatement({
         effect: cdk.aws_iam.Effect.ALLOW,
         resources: [props.spacesTable.tableArn],
-        actions: ["dynamodb:PutItem"],
+        actions: [
+          "dynamodb:PutItem",
+          "dynamodb:Scan",
+          "dynamodb:GetItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:DeleteItem",
+        ],
       })
     );
 

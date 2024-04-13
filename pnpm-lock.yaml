@@ -11,6 +11,9 @@ dependencies:
   '@aws-sdk/client-s3':
     specifier: ^3.540.0
     version: 3.550.0
+  '@aws-sdk/util-dynamodb':
+    specifier: ^3.554.0
+    version: 3.554.0(@aws-sdk/client-dynamodb@3.549.0)
   '@types/uuid':
     specifier: ^9.0.8
     version: 9.0.8
@@ -701,6 +704,16 @@ packages:
     resolution: {integrity: sha512-smVo29nUPAOprp8Z5Y3GHuhiOtw6c8/EtLCm5AVMtRsTPw4V414ZXL2H66tzmb5kEeSzQlbfBSBEdIFZoxO9kg==}
     engines: {node: '>=14.0.0'}
     dependencies:
+      tslib: 2.6.2
+    dev: false
+
+  /@aws-sdk/util-dynamodb@3.554.0(@aws-sdk/client-dynamodb@3.549.0):
+    resolution: {integrity: sha512-Q81Rj38Ban8iV0C1b0cOEHWVHveIW67zVyd2gJvn1xdeKz+N4zCCUviL9Dwfsi6YgOaP+eQaaCptsBA0Nrx7YA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      '@aws-sdk/client-dynamodb': ^3.0.0
+    dependencies:
+      '@aws-sdk/client-dynamodb': 3.549.0
       tslib: 2.6.2
     dev: false
 

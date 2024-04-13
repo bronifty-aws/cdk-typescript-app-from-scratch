@@ -6,7 +6,10 @@ import type {
 import DynamoDBService from "../shared/db";
 import { postHandler } from "./postHandler";
 import { scanHandler } from "./scanHandler";
-const ddb = DynamoDBService.getInstance();
+const ddb = DynamoDBService.getInstance({
+  region: process.env.AWS_REGION || "",
+  tableName: process.env.TABLE_NAME || "",
+});
 
 // for testing
 // import { DynamoDBClient } from "@aws-sdk/client-dynamodb";

@@ -1,4 +1,4 @@
-import type {
+import {
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
   Context,
@@ -6,45 +6,40 @@ import type {
 import DynamoDBService from "../shared/db";
 import { postHandler } from "./postHandler";
 import { scanHandler } from "./scanHandler";
-const ddb = DynamoDBService.getInstance({
-  region: process.env.AWS_REGION || "",
-  tableName: process.env.TABLE_NAME || "",
-});
+// const ddb = DynamoDBService.getInstance({
+//   region: process.env.AWS_REGION || "",
+//   tableName: process.env.TABLE_NAME || "",
+// });
 
 // for testing
-// import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-// import { postHandler } from "./postHandlerOriginal";
-// const ddbClient = new DynamoDBClient({});
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+const ddb = new DynamoDBClient({});
 // end of testing
 
 async function handler(
   event: APIGatewayProxyEvent,
   context: Context
 ): Promise<APIGatewayProxyResult> {
-  let message: string = "";
+  let response: APIGatewayProxyResult = {
+    statusCode: 400,
+    body: "Unsupported method",
+  };
 
   try {
     switch (event.httpMethod) {
       case "GET":
-        return await scanHandler(event, ddb);
-      case "POST":
-        return await postHandler(event, ddb);
+        response = await scanHandler(event, ddb);
+      // case "POST":
+      //   return await postHandler(event, ddb);
       default:
         break;
     }
   } catch (error: Error | any) {
-    console.error(error);
-    return {
+    response = {
       statusCode: 500,
-      body: JSON.stringify(error.message),
+      body: "error",
     };
   }
-
-  const response: APIGatewayProxyResult = {
-    statusCode: 200,
-    body: JSON.stringify(message),
-  };
-
   return response;
 }
 

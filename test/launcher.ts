@@ -1,4 +1,4 @@
-import { handler } from "../src/services/spaces/handler";
+import { handler } from "../src/services/spaces/index";
 
 process.env.AWS_REGION = "us-east-1";
 process.env.TABLE_NAME = "spaces-table-0e64312a57df";
